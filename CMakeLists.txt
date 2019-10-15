@@ -74,6 +74,7 @@ option(PNG_DEBUG "Build with debug output" OFF)
 option(PNG_HARDWARE_OPTIMIZATIONS "Enable hardware optimizations" ON)
 
 option(PNG_DISABLE_FILEGEN        "Disable dynamic generation of config files" OFF)
+option(PNG_DISABLE_STATIC_DEPENDENCIES        "Disable static dependencies" OFF)
 
 set(PNG_PREFIX "" CACHE STRING "Prefix to add to the API function names")
 set(DFA_XTRA "" CACHE FILEPATH "File containing extra configuration settings")
@@ -639,7 +640,9 @@ if(PNG_STATIC)
     # MSVC does not append 'lib'. Do it here, to have consistent name.
     set_target_properties(png_static PROPERTIES PREFIX "lib")
   endif()
-  target_link_libraries(png_static ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  if(NOT PNG_DISABLE_STATIC_DEPENDENCIES)
+    target_link_libraries(png_static ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  endif()
 endif()
 
 if(PNG_FRAMEWORK)
