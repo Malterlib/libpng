@@ -3453,6 +3453,7 @@ png_image_read_background(png_voidp argument)
             for (pass = 0; pass < passes; ++pass)
             {
                png_bytep row = png_voidcast(png_bytep, display->first_row);
+               (void)row;
                unsigned int     startx, stepx, stepy;
                png_uint_32      y;
 
